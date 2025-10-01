@@ -1,6 +1,8 @@
 package com.shakib.hospital_management.controllers;
 
 import com.shakib.hospital_management.models.Appoinment;
+import com.shakib.hospital_management.services.AppointmentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -9,31 +11,34 @@ import java.util.List;
 @RequestMapping("/api/v1/appointments")
 public class AppointmentController {
 
+    @Autowired
+    private AppointmentService appointmentService;
+
     @GetMapping
     public List<Appoinment> getAllAppointment(){
         System.out.println("Fetching the Appointments");
-        return null;
+        return appointmentService.getAllAppointment();
     }
 
     @PostMapping
     public Appoinment createAppointment(@RequestBody Appoinment appoinment){
         System.out.println("Creating Appointment");
-        return appoinment;
+        return appointmentService.createAppoinment(appoinment);
     }
 
-    @GetMapping("{/id}")
+    @GetMapping("/{id}")
     public Appoinment getAppointmentById(@PathVariable Long id){
         System.out.println("Fetching appointment by id");
-        return null;
+        return appointmentService.getAppointmentById(id);
     }
 
-    @PutMapping("{/id}")
-    public void updateAppointment(@PathVariable Long id){
-
+    @PutMapping("/{id}")
+    public Appoinment updateAppointment(@PathVariable Long id){
+        return appointmentService.updateAppoinment(id);
     }
 
-    @DeleteMapping("{/id}")
+    @DeleteMapping("/{id}")
     public void deleteAppointment(@PathVariable Long id){
-
+        appointmentService.deleteAppointment(id);
     }
 }

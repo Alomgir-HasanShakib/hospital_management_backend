@@ -1,6 +1,8 @@
 package com.shakib.hospital_management.controllers;
 
 import com.shakib.hospital_management.models.Doctor;
+import com.shakib.hospital_management.services.DoctorService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -9,30 +11,33 @@ import java.util.List;
 @RequestMapping("/api/v1/doctors")
 public class DoctorController {
 
+    @Autowired
+    private DoctorService doctorService;
+
     @GetMapping
     public List<Doctor> getAllDoctors(){
         System.out.println("Fetching All Doctors");
-        return null;
+        return doctorService.getAllDoctor();
     }
 
-    @GetMapping("{/id}")
+    @GetMapping("/{id}")
     public Doctor getDoctorById(@PathVariable Long id){
         System.out.println("Fetching single Doctor Data");
-        return null;
+        return doctorService.getDoctorById(id);
     }
 
     @PostMapping
     public Doctor createDoctor(@RequestBody Doctor doctor){
         System.out.println("Creating Doctor data");
-        return doctor;
+        return doctorService.createDoctor(doctor);
     }
-    @PutMapping("{/id}")
-    public void updateDoctor(@PathVariable Long id){
-
+    @PutMapping("/{id}")
+    public Doctor updateDoctor(@PathVariable Long id){
+        return doctorService.updateDoctor(id);
     }
 
-    @DeleteMapping("{/id}")
+    @DeleteMapping("/{id}")
     public void deleteDoctor(@PathVariable Long id){
-
+        doctorService.deleteDoctor(id);
     }
 }

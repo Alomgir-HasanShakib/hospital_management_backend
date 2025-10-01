@@ -1,6 +1,8 @@
 package com.shakib.hospital_management.controllers;
 
 import com.shakib.hospital_management.models.Bill;
+import com.shakib.hospital_management.services.BillService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -9,33 +11,36 @@ import java.util.List;
 @RequestMapping("/api/v1/bills")
 public class BillController {
 
+    @Autowired
+    private BillService billService;
+
     @GetMapping
     public List<Bill> getAllBIlls(){
         System.out.println("Fetching all bills");
-        return null;
+        return billService.getAllBills();
     }
 
-    @GetMapping("{/id}")
+    @GetMapping("/{id}")
     public Bill getBillById(@PathVariable Long id){
         System.out.println("Fetching single bill");
-        return null;
+        return billService.getBillById(id);
     }
 
     @PostMapping
     public Bill createBill(@RequestBody Bill bill){
         System.out.println("Creating bill");
-        return bill;
+        return billService.createBill(bill);
     }
 
-    @PutMapping("{/id}")
-    public void updateBill(@PathVariable Long id){
+    @PutMapping("/{id}")
+    public Bill updateBill(@PathVariable Long id){
         System.out.println("Updating bill");
-        return;
+        return billService.updateBill(id);
     }
 
-    @DeleteMapping("{/id}")
+    @DeleteMapping("/{id}")
     public void deleteBill(@PathVariable Long id){
         System.out.println("Deleting Bill");
-        return;
+        billService.deleteBill(id);
     }
 }
